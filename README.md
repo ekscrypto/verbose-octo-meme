@@ -1,3 +1,5 @@
+![swift workflow](https://github.com/ekscrypto/verbose-octo-meme/actions/workflows/swift.yml/badge.svg) [![codecov](https://codecov.io/gh/ekscrypto/verbose-octo-meme/branch/main/graph/badge.svg?token=W9KO1BG8S0)](https://codecov.io/gh/ekscrypto/verbose-octo-meme) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![Issues](https://img.shields.io/github/issues/ekscrypto/verbose-octo-meme) ![Releases](https://img.shields.io/github/v/release/ekscrypto/verbose-octo-meme)
+
 # verbose-octo-meme
 Technical Interview Project
 
