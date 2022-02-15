@@ -18,14 +18,14 @@ class Injector {
     }
 
     static func defaultParserView() -> ParserView<DictionaryWordsParser> {
-        let parser = DictionaryWordsParser {
+        let parser: DictionaryWordsParser = DictionaryWordsParser {
             if let loadedDictionary = try? DictionaryDecoder().load("EnglishWords") {
                 return loadedDictionary
             }
             return []
         }
         
-        let viewModel = ParserViewModel<DictionaryWordsParser>(parser: parser)
+        let viewModel: ParserViewModel<DictionaryWordsParser> = ParserViewModel<DictionaryWordsParser>(parser: parser)
         return ParserView(initialInputText: "", viewModel: viewModel)
     }
 }

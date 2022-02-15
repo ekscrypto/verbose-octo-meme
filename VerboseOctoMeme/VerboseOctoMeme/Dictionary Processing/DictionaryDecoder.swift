@@ -16,11 +16,11 @@ class DictionaryDecoder {
     }
 
     func load(_ filename: String) throws -> [DictionaryEntry] {
-        guard let fileUrl = Bundle(for: DictionaryDecoder.self).url(forResource: filename, withExtension: "json") else {
+        guard let fileUrl: URL = Bundle(for: DictionaryDecoder.self).url(forResource: filename, withExtension: "json") else {
             throw Errors.dictionaryNotFound
         }
-        let dictionaryData = try Data(contentsOf: fileUrl)
-        let words = try JSONDecoder().decode([DictionaryEntry].self, from: dictionaryData)
+        let dictionaryData: Data = try Data(contentsOf: fileUrl)
+        let words: [DictionaryEntry] = try JSONDecoder().decode([DictionaryEntry].self, from: dictionaryData)
         
         // Add a 10-second delay simulating a very large dictionary being loaded
 //        for _ in 0...10 {

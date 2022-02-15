@@ -43,7 +43,7 @@ class DictionaryWordsParser: ParserCompatible {
     
     func parse(_ parsedText: String, result: @escaping (Set<DictionaryEntry>) -> Void) -> Thread {
         dictionaryLock.lock()
-        let dictionaryWords = dictionary
+        let dictionaryWords: [DictionaryEntry] = dictionary
         dictionaryLock.unlock()
 
         let processingThread = Thread {
@@ -64,7 +64,7 @@ class DictionaryWordsParser: ParserCompatible {
     }
     
     private static func findWords(_ inputText: String, dictionary: [DictionaryEntry]) -> Set<DictionaryEntry> {
-        let lowercasedInput = inputText.lowercased()
+        let lowercasedInput: String = inputText.lowercased()
         let identifiedEntries: [DictionaryEntry] = dictionary.filter { dictionaryEntry in
             lowercasedInput.contains(dictionaryEntry.rawValue)
         }

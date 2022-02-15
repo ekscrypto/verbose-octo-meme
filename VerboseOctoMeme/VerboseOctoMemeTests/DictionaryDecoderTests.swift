@@ -11,7 +11,7 @@ import XCTest
 class DictionaryDecoderTests: XCTestCase {
 
     func testValidFile_expectsLoad() throws {
-        let loadedDictionary = try DictionaryDecoder().load("TestDictionary")
+        let loadedDictionary: [DictionaryEntry] = try DictionaryDecoder().load("TestDictionary")
         XCTAssertEqual(loadedDictionary.count, 2)
     }
     

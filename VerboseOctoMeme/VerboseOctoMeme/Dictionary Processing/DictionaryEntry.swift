@@ -24,14 +24,14 @@ struct DictionaryEntry: Codable, RawRepresentable, Hashable {
     static let allowedCharacterSet: CharacterSet = .lowercaseLetters
     
     init?(rawValue: String) {
-        guard let validatedValue = try? DictionaryEntry.validated(rawValue) else {
+        guard let validatedValue: String = try? DictionaryEntry.validated(rawValue) else {
             return nil
         }
         self.rawValue = validatedValue
     }
 
     init(from decoder: Decoder) throws {
-        let candidate = try decoder
+        let candidate: String = try decoder
             .singleValueContainer()
             .decode(String.self)
         self.rawValue = try DictionaryEntry.validated(candidate)
@@ -58,9 +58,9 @@ struct DictionaryEntry: Codable, RawRepresentable, Hashable {
     private static func containsOnlyValidCharactera(_ candidate: String) throws -> Void {
                 
         try doesNotStartOrEndWithHyphen(candidate)
-        let hyphenatedWords = try hyphenatedWords(from: candidate)
+        let hyphenatedWords: [String] = try hyphenatedWords(from: candidate)
         
-        let disallowedCharacters = allowedCharacterSet.inverted
+        let disallowedCharacters: CharacterSet = allowedCharacterSet.inverted
         guard hyphenatedWords.allSatisfy({ $0.rangeOfCharacter(from: disallowedCharacters) == nil }) else {
                 throw Errors.invalidCharacters
         }
@@ -76,7 +76,7 @@ struct DictionaryEntry: Codable, RawRepresentable, Hashable {
     }
     
     private static func hyphenatedWords(from candidate: String) throws -> [String] {
-        let hyphenatedwords = candidate.components(separatedBy: "-")
+        let hyphenatedwords: [String] = candidate.components(separatedBy: "-")
         guard hyphenatedwords.count <= maximumHyphenations else {
             throw Errors.invalidHyphenation
         }

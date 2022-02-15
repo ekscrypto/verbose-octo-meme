@@ -106,7 +106,7 @@ also advise using a parser to generate an enum of all strings.  A tool like Swif
 In production level app I would advise to use a syntax validation tool.  SwiftLint or something similar would
 be appropriate.  You want to enforce simple stuff like where to put braces, spacing, etc.  It was left outside
 the scope of this project to avoid using CocoaPods or requiring to download additional tools just to validate I
-know how to write a .swiftgen.yml file.
+know how to write a .swiftlint.yml file.
 
 
 

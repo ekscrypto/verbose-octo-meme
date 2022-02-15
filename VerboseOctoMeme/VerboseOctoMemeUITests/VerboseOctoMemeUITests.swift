@@ -20,7 +20,7 @@ class VerboseOctoMemeUITests: XCTestCase {
     }
     
     func enterTextAndConfirmResults(text textToEnter: String, results resultsExpected: String) {
-        let app = XCUIApplication()
+        let app: XCUIApplication = XCUIApplication()
         app.launch()
 
         XCTAssertTrue(app.textFields["UserInputField"].waitForExistence(timeout: defaultTimeout))
@@ -42,15 +42,19 @@ class VerboseOctoMemeUITests: XCTestCase {
         XCTAssertEqual(app.staticTexts["RequestedResults"].label, resultsExpected)
     }
 
-    func testEnterSecondaryAndTapParse_expectsSecondAndSecondary() throws {
+    func testEnterSecondaryAndTapParse_expectsSecondAndSecondary() {
         enterTextAndConfirmResults(text: "Secondary", results: "second secondary")
     }
     
-    func testEnterApplepieshoeAndTapParse_expectsApplePieAndShoe() throws {
+    func testEnterApplepieshoeAndTapParse_expectsApplePieAndShoe() {
         enterTextAndConfirmResults(text: "ApplePieShoe", results: "apple pie shoe")
     }
 
-    func testEnterShoeorapplepieAndTapParse_expectsApplePieAndShoe() throws {
+    func testEnterShoeorapplepieAndTapParse_expectsApplePieAndShoe() {
         enterTextAndConfirmResults(text: "Shoe or Apple Pie", results: "apple pie shoe")
+    }
+    
+    func testEnterSomethingThatIsntMatched_expectsEmpty() {
+        enterTextAndConfirmResults(text: "Bugs", results: "")
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Combine
 
 class DictionaryWordsParserTests: XCTestCase {
     
@@ -16,7 +17,7 @@ class DictionaryWordsParserTests: XCTestCase {
         let entries: [DictionaryEntry] = words.map { DictionaryEntry(rawValue: $0)! }
         let parser: DictionaryWordsParser = DictionaryWordsParser(dictionary: { entries })
         let parserReadyExpectation: XCTestExpectation = XCTestExpectation(description: "")
-        let readyObserver = parser.readyPublisher.sink { ready in
+        let readyObserver: AnyCancellable = parser.readyPublisher.sink { ready in
             if ready {
                 parserReadyExpectation.fulfill()
             }
@@ -27,9 +28,9 @@ class DictionaryWordsParserTests: XCTestCase {
     }
 
     func testSecondary_expectsSecondAndSecondary() {
-        let parser = prepareParser(words: ["second","secondary","should-not-match"])
+        let parser: DictionaryWordsParser = prepareParser(words: ["second","secondary","should-not-match"])
         let parsingToCompleteExpectation: XCTestExpectation = XCTestExpectation(description: "Parser should return within a reasonable amount of time")
-        let parsingThread = parser.parse("Secondary") { results in
+        let parsingThread: Thread = parser.parse("Secondary") { results in
             XCTAssertEqual(results.count, 2, "Exactly 2 matches are expected, Secondary and Second, Optional should not be matched")
             XCTAssertTrue(results.contains(where: { $0.rawValue == "secondary" }))
             XCTAssertTrue(results.contains(where: { $0.rawValue == "second"}))
@@ -40,9 +41,9 @@ class DictionaryWordsParserTests: XCTestCase {
     }
 
     func testApplepieshoe_expectsApplePieAndShoe() {
-        let parser = prepareParser(words: ["apple", "should-not-match", "pie", "shoe"])
+        let parser: DictionaryWordsParser = prepareParser(words: ["apple", "should-not-match", "pie", "shoe"])
         let parsingToCompleteExpectation: XCTestExpectation = XCTestExpectation(description: "Parser should return within a reasonable amount of time")
-        let parsingThread = parser.parse("ApplePieShoe") { results in
+        let parsingThread: Thread = parser.parse("ApplePieShoe") { results in
             XCTAssertEqual(results.count, 3, "Apple, Pie and Shoe should be matched, Optional should not be matched")
             XCTAssertTrue(results.contains(where: { $0.rawValue == "apple" }))
             XCTAssertTrue(results.contains(where: { $0.rawValue == "pie" }))
@@ -54,9 +55,9 @@ class DictionaryWordsParserTests: XCTestCase {
     }
     
     func testNoMatch_expectsEmptySet() {
-        let parser = prepareParser(words: ["apple","should-not-match","pie","shoe"])
+        let parser: DictionaryWordsParser = prepareParser(words: ["apple","should-not-match","pie","shoe"])
         let parsingToCompleteExpectation: XCTestExpectation = XCTestExpectation(description: "Parser should return within a reasonable amount of time")
-        let parsingThread = parser.parse("Maple Syrup") { results in
+        let parsingThread: Thread = parser.parse("Maple Syrup") { results in
             XCTAssertEqual(results.count, 0, "None of the dictionary words are in the input string, so there should be no match")
             parsingToCompleteExpectation.fulfill()
         }

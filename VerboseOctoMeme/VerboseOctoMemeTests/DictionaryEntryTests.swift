@@ -67,16 +67,16 @@ class DictionaryEntryTests: XCTestCase {
     }
     
     func testAboveAllowedLength_invalid() {
-        let maximumLengthString = String(repeating: "a", count: DictionaryEntry.maximumLength)
-        let tooLongString = "\(maximumLengthString)a"
+        let maximumLengthString: String = String(repeating: "a", count: DictionaryEntry.maximumLength)
+        let tooLongString: String = "\(maximumLengthString)a"
         XCTAssertNotNil(DictionaryEntry(rawValue: maximumLengthString), "A dictionary entry may contain up to maximum \(DictionaryEntry.maximumLength) characters")
         XCTAssertNil(DictionaryEntry(rawValue: tooLongString), "Expected \(tooLongString) to contain too many characters, maximum is \(DictionaryEntry.maximumLength)")
     }
     
     func testEncodable_matchRawValue() throws {
         let dictionaryEntry: DictionaryEntry = DictionaryEntry(rawValue: "motorcycle")!
-        let encodedJson = try JSONEncoder().encode(dictionaryEntry)
-        let encodedAsString = String(data: encodedJson, encoding: .ascii)
+        let encodedJson: Data = try JSONEncoder().encode(dictionaryEntry)
+        let encodedAsString: String? = String(data: encodedJson, encoding: .ascii)
         XCTAssertEqual(encodedAsString, #""motorcycle""#, "The JSON value of the string should be the same string wrapped in double quotes")
     }
     
@@ -84,23 +84,23 @@ class DictionaryEntryTests: XCTestCase {
         let firstValue: DictionaryEntry = DictionaryEntry(rawValue: "hello")!
         let secondValue: DictionaryEntry = DictionaryEntry(rawValue: "world")!
         let testValues: [DictionaryEntry] = [firstValue, secondValue]
-        let encodedJson = try JSONEncoder().encode(testValues)
-        let encodedAsString = String(data: encodedJson, encoding: .ascii)
+        let encodedJson: Data = try JSONEncoder().encode(testValues)
+        let encodedAsString: String? = String(data: encodedJson, encoding: .ascii)
         XCTAssertEqual(encodedAsString, #"["hello","world"]"#, "Expected RawRepresentable strings to be encoded same without modification, as an array of String")
     }
     
     func testDecodable_matchJson() throws {
-        let encodedAsString = #"["hello","world"]"#
-        let encodedJson = encodedAsString.data(using: .ascii)!
-        let testValues = try JSONDecoder().decode([DictionaryEntry].self, from: encodedJson)
+        let encodedAsString: String = #"["hello","world"]"#
+        let encodedJson: Data = encodedAsString.data(using: .ascii)!
+        let testValues: [DictionaryEntry] = try JSONDecoder().decode([DictionaryEntry].self, from: encodedJson)
         XCTAssertEqual(testValues.count, 2, "Only two items were in the JSON array, so exactly two items should be in the output")
         XCTAssertEqual(testValues.first?.rawValue, "hello", "First String value in JSON array should be: hello")
         XCTAssertEqual(testValues.last?.rawValue, "world", "Second and last String value in JSON array should be: world")
     }
     
     func testDecodableInvalidCharacters_throws() {
-        let encodedAsString = #"["hell!","world"]"#
-        let encodedJson = encodedAsString.data(using: .ascii)!
+        let encodedAsString: String = #"["hell!","world"]"#
+        let encodedJson: Data = encodedAsString.data(using: .ascii)!
         XCTAssertThrowsError(try JSONDecoder().decode([DictionaryEntry].self, from: encodedJson), "Decoding should throw if any value is invalid")
     }
 }
