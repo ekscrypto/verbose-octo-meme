@@ -38,6 +38,7 @@ struct ParserView<Parser: ParserCompatible>: View {
             
             Spacer()
         }
+        .accessibilityIdentifier("MainScrollView")
     }
 }
 

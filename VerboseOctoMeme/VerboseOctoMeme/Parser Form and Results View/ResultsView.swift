@@ -41,6 +41,7 @@ struct ResultsView: View {
             GroupBox {
                 Text(parsedText)
                     .lineLimit(3)
+                    .accessibilityIdentifier("SearchedTextSummary")
             }
         }
         .frame(minWidth: 0, maxWidth: .infinity)
@@ -60,6 +61,7 @@ struct ResultsView: View {
         VStack(alignment: .center, spacing: 0) {
             GroupBox {
                 Text(requestedOutput)
+                    .accessibilityIdentifier("RequestedResults")
             }
         }
         .frame(minWidth: 0, maxWidth: .infinity)

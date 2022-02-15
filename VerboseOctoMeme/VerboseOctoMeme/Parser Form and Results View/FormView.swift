@@ -21,6 +21,7 @@ struct FormView: View {
             Text("Enter a string to parse:")
             TextField("Input", text: $inputString)
                 .padding(.horizontal, 0).padding(.top, 20)
+                .accessibilityIdentifier("UserInputField")
             Divider()
             HStack {
                 Spacer()
@@ -30,6 +31,7 @@ struct FormView: View {
                     .disabled(parserLoading || inputString.isEmpty)
                     .padding()
                     .border(.ultraThickMaterial)
+                    .accessibilityIdentifier("ParseButton")
             }
         }
     }

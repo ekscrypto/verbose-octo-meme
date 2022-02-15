@@ -8,26 +8,49 @@
 import XCTest
 
 class VerboseOctoMemeUITests: XCTestCase {
+    
+    private let defaultTimeout: TimeInterval = 2.0
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    
+    func enterTextAndConfirmResults(text textToEnter: String, results resultsExpected: String) {
         let app = XCUIApplication()
         app.launch()
 
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        XCTAssertTrue(app.textFields["UserInputField"].waitForExistence(timeout: defaultTimeout))
+        XCTAssertTrue(app.buttons["ParseButton"].waitForExistence(timeout: defaultTimeout))
+
+        XCTAssertFalse(app.buttons["ParseButton"].isEnabled)
+        
+        app.textFields["UserInputField"].tap()
+        app.textFields["UserInputField"].typeText(textToEnter)
+        XCTAssertTrue(app.buttons["ParseButton"].isEnabled)
+        app.buttons["ParseButton"].tap()
+        
+        XCTAssertTrue(app.staticTexts["SearchedTextSummary"].waitForExistence(timeout: defaultTimeout))
+        XCTAssertEqual(app.staticTexts["SearchedTextSummary"].label, textToEnter)
+        
+        app.staticTexts["SearchedTextSummary"].swipeUp()
+
+        XCTAssertTrue(app.staticTexts["RequestedResults"].waitForExistence(timeout: defaultTimeout))
+        XCTAssertEqual(app.staticTexts["RequestedResults"].label, resultsExpected)
+    }
+
+    func testEnterSecondaryAndTapParse_expectsSecondAndSecondary() throws {
+        enterTextAndConfirmResults(text: "Secondary", results: "second secondary")
+    }
+    
+    func testEnterApplepieshoeAndTapParse_expectsApplePieAndShoe() throws {
+        enterTextAndConfirmResults(text: "ApplePieShoe", results: "apple pie shoe")
+    }
+
+    func testEnterShoeorapplepieAndTapParse_expectsApplePieAndShoe() throws {
+        enterTextAndConfirmResults(text: "Shoe or Apple Pie", results: "apple pie shoe")
     }
 }
