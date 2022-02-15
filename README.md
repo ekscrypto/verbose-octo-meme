@@ -79,8 +79,8 @@ ease of navigation. Given the project size this seemed acceptable.
 Again no problem following any project guidelines or discuss with the team as needed!
 
 ## Asynchronous Loading / Parsing
-Again giving the consideration that you may want to parse against the entire English dictionary, this will
-not be instantaneous and therefore Thread were dispatched.
+Considering the ability to parse against the entire English dictionary, this will
+not be instantaneous and therefore Thread were dispatched for parsing.
 
 In a production environment the Thread may further be optimized to run with a different priority level.
 
