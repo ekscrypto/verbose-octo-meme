@@ -69,6 +69,7 @@
 		78C5E3BA27BB38C3000EDB5F /* DictionaryEntryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryEntryTests.swift; sourceTree = "<group>"; };
 		78C5E3BD27BB4663000EDB5F /* DictionaryDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryDecoderTests.swift; sourceTree = "<group>"; };
 		78C5E3BF27BB4689000EDB5F /* TestDictionary.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TestDictionary.json; sourceTree = "<group>"; };
+		78CA9BE127BB7DCA006B6AE1 /* workflows */ = {isa = PBXFileReference; lastKnownFileType = folder; name = workflows; path = ../.github/workflows; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +100,7 @@
 		78C5E36E27BAE914000EDB5F = {
 			isa = PBXGroup;
 			children = (
+				78CA9BE127BB7DCA006B6AE1 /* workflows */,
 				78C5E3B027BAF7FF000EDB5F /* LICENSE */,
 				78C5E3AF27BAF7FF000EDB5F /* README.md */,
 				78C5E37927BAE914000EDB5F /* VerboseOctoMeme */,
