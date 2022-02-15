@@ -64,8 +64,8 @@ Obviously in a production environment other languages would also have to be take
 to confirm the rules are relaxed to permit all expected words.
 
 ## Swift type declarations
-Variables are all defines with their types pre-defined so the Swift compiler does not have to be inferred;
-speeds up compilation.
+Throughout the code base variable declarations include the data type specifier.  This was done purposefully
+to reduce the total compile time of the project by saving Swift to do type inference.
 
 If this is not part of the Swift Coding Guidelines of your team, I have no problem adjusting accordingly :)
 
@@ -121,6 +121,18 @@ While the app was purposefully left to work in both Portrait and Landscape mode,
 more useable in Landscape.  In a production environment either sufficient time would be given or coordination
 with a UI/UX team would be required to properly implement landscape support.  If landscape support is not desirable
 at all it can be disabled via the Info.plist keys
+
+
+
+# Unit Tests
+
+## Targets
+The unit test target was purposefully not hosted in the primary target for the app.  This is to reduce the amount
+of recompilation required when doing TDD.  In a very large project the unit tests could further be split into
+multiple targets, probably one per vertical team, so as to keep developers as productive as possible.
+
+As with everything else, if there are practices defined by the team that differs from the practices demonstrated
+in this project (as I would expect), then it's a simple matter of reviewing & applying them.
 
 
 
